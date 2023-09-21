@@ -1,16 +1,9 @@
+'use client'
+import {useState, useEffect} from 'react'
 import {TodoItem} from '@/components/TodoItem'
-import {prisma} from '@/db'
 import Link from 'next/link'
-
-function getTodos() {
-  return prisma.todo.findMany()
-}
-
-async function toggleTodo(id: string, complete: boolean) {
-  'use server'
-
-  await prisma.todo.update({where: {id}, data: {complete}})
-}
+// these have to be imported from elsewhere because they are server actions
+import {getTodos, toggleTodo, deleteTodo} from './todoActions.server'
 
 type Todo = {
   id: string
@@ -18,8 +11,27 @@ type Todo = {
   complete: boolean
 }
 
-export default async function Home() {
-  const todos = await getTodos()
+// To avoid refreshing the page when we delete a todo item,
+// we  manage the state of the todos locally using React's state.
+// This way, when a todo is deleted, we can remove it from the local state,
+// which will cause a re-render and the todo will be removed from the UI.
+
+export default function Home() {
+  const [todos, setTodos] = useState<Todo[]>([])
+
+  useEffect(() => {
+    getTodos().then(fetchedTodos => setTodos(fetchedTodos))
+  }, [])
+
+  const handleDeleteTodo = async (id: string) => {
+    try {
+      await deleteTodo(id)
+      // After successful deletion, remove the todo from the local state
+      setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id))
+    } catch (error) {
+      console.error('Failed to delete todo:', error)
+    }
+  }
 
   return (
     <>
@@ -39,6 +51,7 @@ export default async function Home() {
             key={todo.id}
             {...todo}
             toggleTodo={toggleTodo}
+            deleteTodo={handleDeleteTodo}
             data-cy={`todo-${todo.id}`}
           />
         ))}

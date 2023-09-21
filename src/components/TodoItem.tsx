@@ -5,9 +5,16 @@ export type TodoItemProps = {
   title: string
   complete: boolean
   toggleTodo: (id: string, complete: boolean) => void
+  deleteTodo: (id: string) => void
 }
 
-export function TodoItem({id, title, complete, toggleTodo}: TodoItemProps) {
+export function TodoItem({
+  id,
+  title,
+  complete,
+  toggleTodo,
+  deleteTodo,
+}: TodoItemProps) {
   return (
     <li className="flex gap-1 items-center">
       <input
@@ -23,6 +30,12 @@ export function TodoItem({id, title, complete, toggleTodo}: TodoItemProps) {
       >
         {title}
       </label>
+      <button
+        onClick={() => deleteTodo(id)}
+        className="text-red-500 hover:text-red-700"
+      >
+        - delete
+      </button>
     </li>
   )
 }
