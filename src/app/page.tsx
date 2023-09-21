@@ -19,7 +19,6 @@ type Todo = {
 }
 
 export default async function Home() {
-  // await prisma.todo.create({data: {title: 'test', complete: false}})
   const todos = await getTodos()
 
   return (
@@ -29,13 +28,19 @@ export default async function Home() {
         <Link
           className="border border-slate-300 text-slate-300 px-2 py-1 rounded hover:bg-slate-700 focus-within:bg-slate-700 outline-none"
           href="/new"
+          data-cy="new"
         >
           New
         </Link>
       </header>
       <ul className="pl-4">
         {todos.map((todo: Todo) => (
-          <TodoItem key={todo.id} {...todo} toggleTodo={toggleTodo} />
+          <TodoItem
+            key={todo.id}
+            {...todo}
+            toggleTodo={toggleTodo}
+            data-cy={`todo-${todo.id}`}
+          />
         ))}
       </ul>
     </>
