@@ -6,6 +6,8 @@ export default defineConfig({
   // @ts-expect-error - experimentalSingleTabRunMode is not in the type definition
   experimentalSingleTabRunMode: true,
 
+  projectId: 'nep1o8',
+
   retries: {
     runMode: 2,
     openMode: 0,
