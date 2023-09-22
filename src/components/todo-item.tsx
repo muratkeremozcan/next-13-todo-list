@@ -19,6 +19,7 @@ export function TodoItem({
     <li className="flex gap-1 items-center">
       <input
         id={id}
+        data-cy={`check-${title}`}
         type="checkbox"
         className="cursor-pointer peer"
         defaultChecked={complete}
@@ -31,6 +32,7 @@ export function TodoItem({
         {title}
       </label>
       <button
+        data-cy={`delete-${title}`}
         onClick={() => deleteTodo(id)}
         className="text-red-500 hover:text-red-700"
       >

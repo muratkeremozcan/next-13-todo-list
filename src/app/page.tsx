@@ -1,9 +1,9 @@
 'use client'
 import {useState, useEffect} from 'react'
-import {TodoItem} from '@/components/TodoItem'
+import {TodoItem} from '@/components/todo-item'
 import Link from 'next/link'
 // these have to be imported from elsewhere because they are server actions
-import {getTodos, toggleTodo, deleteTodo} from './todoActions.server'
+import {getTodos, toggleTodo, deleteTodo} from './todo.server'
 
 // think of page.tsx as an index file
 
@@ -41,7 +41,9 @@ export default function Home() {
   return (
     <>
       <header className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl">Todos</h1>
+        <h1 data-cy="todos" className="text-2xl">
+          Todos
+        </h1>
         <Link
           className="border border-slate-300 text-slate-300 px-2 py-1 rounded hover:bg-slate-700 focus-within:bg-slate-700 outline-none"
           href="/new"
