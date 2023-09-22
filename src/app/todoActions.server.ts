@@ -1,15 +1,22 @@
 'use server'
-
 import {prisma} from '@/db'
 
-export async function getTodos() {
-  return await prisma.todo.findMany()
-}
+export const getTodos = () => prisma.todo.findMany()
 
-export async function toggleTodo(id: string, complete: boolean) {
-  return await prisma.todo.update({where: {id}, data: {complete}})
-}
+export const toggleTodo = (id: string, complete: boolean) =>
+  prisma.todo.update({where: {id}, data: {complete}})
 
-export async function deleteTodo(id: string) {
-  return await prisma.todo.delete({where: {id}})
-}
+export const deleteTodo = (id: string) => prisma.todo.delete({where: {id}})
+
+// this can be at the component we use it at.. Since it's only used there
+// and that component doesn't have to 'use client'
+
+// export async function createTodo(data: FormData) {
+//   const title = data.get('title')?.valueOf()
+//   if (typeof title !== 'string' || title.length === 0) {
+//     throw new Error('Invalid Title')
+//   }
+
+//   await prisma.todo.create({data: {title, complete: false}})
+//   return redirect('/')
+// }
