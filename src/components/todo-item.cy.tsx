@@ -1,6 +1,16 @@
+// TODO: enable the line and make styles work
+// import '../app/globals.css'
 import {TodoItem} from './todo-item'
 
 describe('TodoItem', () => {
+  // wish this worked
+  // beforeEach(() => {
+  //   // Add the anchor element expected by Next.js CSS loading mechanism
+  //   const anchorElement = document.createElement('div')
+  //   anchorElement.id = '__next_css__DO_NOT_USE__'
+  //   document.head.appendChild(anchorElement)
+  // })
+
   it('should toggle and delete todo', () => {
     const id = '42'
     const title = 'Buy milk'

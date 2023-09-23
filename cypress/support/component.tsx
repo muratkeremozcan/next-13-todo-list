@@ -1,5 +1,5 @@
 // make styles work
-// import '../../src/app/globals.css' // 
+// import '../../src/app/globals.css' //
 import './commands'
-import { mount } from 'cypress/react18'
+import {mount} from 'cypress/react18'
 Cypress.Commands.add('mount', mount)
